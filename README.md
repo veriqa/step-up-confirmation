@@ -13,6 +13,11 @@ The sample pairs a small application, written in each of these languages, with t
 [Veriqa](https://veriqa.app) confirmation server from its published Docker image. The application calls Veriqa over a
 plain HTTPS API, so the same flow fits any stack.
 
+<p align="center">
+  <img src="./media/en-telegram-confirm.webp" width="800" alt="Confirming an action in Telegram: the app shows a QR code for the action, the phone camera scans it, the person answers the request in Telegram, and the answer goes back to the app." /><br />
+  <sub>Deleting a project, from the person's side: a QR code, the phone camera, one answer in Telegram.</sub>
+</p>
+
 ## What you get
 
 Open the page. It has two parts:
@@ -154,6 +159,27 @@ declaration a request naming it is refused with `candidate_type_undeclared`. It 
 because the stand enables Telegram alone; with several channels, compare an identity that does not
 depend on the channel. The stand runs in the `Development` environment: tokens and transactions live
 in memory, so they are lost on restart. It is a local stand, not a deployment.
+
+## Other channels, such as WhatsApp
+
+Telegram is only the channel this stand starts with. To ask through WhatsApp or another channel as well,
+add its settings as [Channels](https://veriqa.app/docs/guides/channels#whatsapp) describes: the section
+`Veriqa:Channels:WhatsApp` goes in `built-in/veriqa.json`, its secrets through `.env` and
+`built-in/docker-compose.yml`, the same way as the Telegram token. The application's code does not
+change: with more than one channel on, `channel_entry` leads to a Veriqa page where the person picks a
+channel. WhatsApp delivers the answers to a webhook, so the stand then needs a public HTTPS address. The
+step-up compares `telegram_user_id`, so with a second channel on, compare an identity that does not
+depend on the channel (see above).
+
+<p align="center">
+  <img src="./media/en-whatsapp-confirm.webp" width="800" alt="Confirming a purchase in WhatsApp: the app shows a QR code, the phone camera scans it, the person sends a ready-made message, taps Confirm, and the answer goes back to the app." /><br />
+  <sub>In WhatsApp the person first sends a ready-made message, then confirms.</sub>
+</p>
+
+<p align="center">
+  <img src="./media/en-messenger-confirm.webp" width="800" alt="Confirming a purchase in Messenger: the app shows a QR code for a $99 plan, the phone camera scans it, the person confirms in Messenger, and the chat replies &quot;Purchase confirmed&quot;." /><br />
+  <sub>A purchase confirmed in Messenger: a $99 plan, one tap.</sub>
+</p>
 
 ## Going further
 
